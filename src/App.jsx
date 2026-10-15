@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -25,7 +26,7 @@ const translations = {
     nav: ["मुख्यपृष्ठ", "आमच्याबद्दल", "पदाधिकारी", "योजना", "सूचना", "विकासकामे", "संपर्क"],
     heroTag: "आपले गाव, आपला अभिमान",
     heroTitle: "एकत्र येऊया,",
-    heroHighlight: "गाव घडवूया!",
+    heroHighlight: "गाव घडवूया !",
     heroText: "पारदर्शक प्रशासन, नागरिकांचा सहभाग आणि शाश्वत विकासासाठी ग्रामपंचायत बोक्हारा सदैव कटिबद्ध.",
     explore: "अधिक जाणून घ्या",
     servicesTitle: "नागरिक सेवा",
@@ -417,13 +418,8 @@ export default function App() {
         }
 
         @keyframes loading {
-          from {
-            transform: translateX(-100%);
-          }
-
-          to {
-            transform: translateX(250%);
-          }
+          from { transform: translateX(-100%); }
+          to { transform: translateX(250%); }
         }
 
         @keyframes welcomeFade {
@@ -431,7 +427,6 @@ export default function App() {
             opacity: 0;
             transform: translateY(12px);
           }
-
           to {
             opacity: 1;
             transform: translateY(0);
@@ -468,7 +463,6 @@ export default function App() {
           align-items: center;
           gap: 18px;
           padding: 22px 6%;
-          background: white;
         }
 
         .emblem {
@@ -941,10 +935,11 @@ export default function App() {
         }
 
         .footer {
-  padding: 50px 6% 20px;
-  background: #303943;
-  color: #edf4ee;
-}
+          padding: 50px 6% 20px;
+          background: #303943;
+          color: #edf4ee;
+        }
+
         .footer-content {
           display: grid;
           grid-template-columns: 2fr 1fr 1fr;
@@ -1102,6 +1097,330 @@ export default function App() {
           }
         }
 
+        /* ===== COMPACT VILLAGE HEADER ===== */
+        .masthead {
+          min-height: 88px;
+          padding: 12px 6%;
+          gap: 16px;
+        }
+
+        .emblem {
+          width: 54px;
+          height: 54px;
+          font-size: 28px;
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .emblem:hover {
+          transform: rotate(-8deg) scale(1.06);
+          box-shadow: 0 0 0 6px rgba(36, 99, 166, 0.09);
+        }
+
+        .masthead h1 {
+          letter-spacing: 0.2px;
+        }
+
+        .masthead-tagline {
+          line-height: 1.5;
+        }
+
+        /* ===== MORE BREATHING ROOM IN NAVBAR ===== */
+        .nav-inner {
+          padding: 0 4%;
+        }
+
+        .nav-links {
+          gap: 8px;
+        }
+
+        .nav-link {
+          position: relative;
+          padding: 14px 16px;
+          border-radius: 5px;
+          transition:
+            background 0.25s ease,
+            transform 0.25s ease,
+            color 0.25s ease;
+        }
+
+        .nav-link::after {
+          content: "";
+          position: absolute;
+          left: 16px;
+          right: 16px;
+          bottom: 7px;
+          height: 2px;
+          border-radius: 5px;
+          background: #f28c28;
+          transform: scaleX(0);
+          transform-origin: center;
+          transition: transform 0.25s ease;
+        }
+
+        .nav-link:hover {
+          transform: translateY(-2px);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+          transform: scaleX(1);
+        }
+
+        /* ===== SUBTLE VILLAGE-INSPIRED HOME BACKGROUND ===== */
+        .home-page {
+          position: relative;
+          isolation: isolate;
+        }
+
+        .home-page .section {
+          position: relative;
+          isolation: isolate;
+        }
+
+        .home-page .section:not(.section-green)::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          pointer-events: none;
+          opacity: 0.45;
+          background-image:
+            radial-gradient(circle, rgba(36, 99, 166, 0.12) 1.5px, transparent 2px),
+            radial-gradient(circle, rgba(242, 140, 40, 0.12) 2px, transparent 3px);
+          background-size: 34px 34px, 57px 57px;
+          background-position: 0 0, 17px 21px;
+          mask-image: linear-gradient(
+            135deg,
+            black,
+            transparent 42%,
+            transparent 65%,
+            black
+          );
+        }
+
+        .home-page .hero {
+          background-size: 100% 100%;
+        }
+
+      .home-page .hero::before,
+.home-page .hero::after {
+  animation: none !important;
+  transform: none !important;
+}
+
+        /* ===== CARD HOVER & BORDER DETAILS ===== */
+        .home-page .service-card,
+        .home-page .member-card,
+        .home-page .scheme-card,
+        .home-page .notice-board,
+        .home-page .development-card {
+          position: relative;
+          transition:
+            transform 0.32s cubic-bezier(0.2, 0.75, 0.3, 1),
+            box-shadow 0.32s ease,
+            border-color 0.32s ease;
+        }
+
+        .home-page .member-card {
+          border-color: #dce7e0;
+        }
+
+        .home-page .member-card:hover {
+          border-color: #80bca0;
+          box-shadow:
+            0 15px 30px rgba(24, 80, 53, 0.12),
+            0 0 0 3px rgba(7, 132, 81, 0.07);
+        }
+
+        .home-page .member-photo {
+          isolation: isolate;
+        }
+
+        .home-page .member-photo::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          background: linear-gradient(
+            110deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.36) 48%,
+            transparent 70%
+          );
+          transform: translateX(-120%);
+          transition: transform 0.65s ease;
+        }
+
+        .home-page .member-card:hover .member-photo::after {
+          transform: translateX(120%);
+        }
+
+        .home-page .scheme-card:hover {
+          border-color: #e9a65f;
+          box-shadow: 0 13px 25px rgba(92, 71, 40, 0.11);
+        }
+
+        .home-page .notice-board:hover {
+          box-shadow: 0 13px 25px rgba(36, 77, 110, 0.12);
+        }
+
+        .home-page .development-card:hover {
+          border-color: rgba(255, 208, 120, 0.85);
+          box-shadow: 0 10px 24px rgba(0, 0, 0, 0.13);
+        }
+
+        /* Keep interactive elements above decorative backgrounds */
+        .home-page .section-heading,
+        .home-page .services-grid,
+        .home-page .about-layout,
+        .home-page .members-grid,
+        .home-page .schemes-grid,
+        .home-page .notice-layout,
+        .home-page .development-grid {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* ===== RESPONSIVE HEADER & NAV ===== */
+        @media (max-width: 900px) {
+          .nav-links {
+            gap: 3px;
+          }
+
+          .nav-link {
+            padding: 13px 12px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .masthead {
+            min-height: 0;
+            padding: 12px 4%;
+            gap: 10px;
+          }
+
+          .emblem {
+            width: 46px;
+            height: 46px;
+            font-size: 24px;
+          }
+
+          .nav-links {
+            gap: 0;
+          }
+
+          .nav-link {
+            border-radius: 4px;
+          }
+
+          .nav-link::after {
+            left: 8px;
+            right: auto;
+            width: 35px;
+          }
+
+          .home-page .section:not(.section-green)::before {
+            opacity: 0.25;
+            background-size: 27px 27px, 45px 45px;
+          }
+        }
+        
+        
+/
+
+
+/* ===== WHITE HERO WITH VILLAGE LINE ART ===== */
+
+.home-page .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #ffffff !important;
+  color: #243b50;
+}
+
+.home-page .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.home-page .hero h1 {
+  color: #203c58;
+}
+
+.home-page .hero p {
+  color: #617386;
+}
+
+.home-page .hero .hero-eyebrow {
+  color: #548d79;
+}
+
+/* Pastel background glow */
+.home-page .hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  width: 48%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 70% 35%,
+    rgba(190, 220, 246, 0.3),
+    transparent 60%
+  );
+}
+
+/* Village illustration: house, trees, sun, birds and grass */
+.home-page .hero::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  right: 2%;
+  bottom: 0;
+  width: 48%;
+  height: 92%;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  animation: none !important;
+transform: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 430' fill='none'%3E%3Cg stroke-linecap='round' stroke-linejoin='round' stroke-width='3'%3E%3Ccircle cx='480' cy='75' r='30' stroke='%23E8B9A8'/%3E%3Cpath d='M480 30v-10 M480 120v10 M435 75h-10 M525 75h10 M448 43l-8-8 M512 107l8 8 M512 43l8-8 M448 107l-8 8' stroke='%23E8B9A8'/%3E%3Cpath d='M70 125q12-15 24 0q12-15 24 0 M170 80q10-13 20 0q10-13 20 0 M380 120q10-13 20 0q10-13 20 0' stroke='%2399B8D5'/%3E%3Cpath d='M35 350h530 M55 350q10-20 20 0q10-20 20 0 M485 350q10-20 20 0q10-20 20 0' stroke='%2396BCA3'/%3E%3Cpath d='M200 350V215l80-65 80 65v135 M180 220l100-80 100 80' stroke='%237FA7CB'/%3E%3Cpath d='M220 215h120v135H220z M260 350v-65q0-20 20-20t20 20v65' stroke='%237FA7CB'/%3E%3Cpath d='M235 235h22v25h-22z M303 235h22v25h-22z M235 247h22 M246 235v25 M303 247h22 M314 235v25' stroke='%23D8A69B'/%3E%3Cpath d='M105 350V245 M105 220v-25 M105 195c-40 0-48 48-22 62c-8 29 30 43 48 19c31 7 47-29 25-48c0-25-26-42-51-33z' stroke='%2396BCA3'/%3E%3Cpath d='M430 350V270 M430 245c-35-4-45 34-24 48c-5 25 28 37 43 17c27 4 38-27 18-42c-1-20-19-30-37-23z' stroke='%2396BCA3'/%3E%3Cpath d='M155 350q-3-22-18-30 M155 350q8-19 23-25 M390 350q-3-22-18-30 M390 350q8-19 23-25' stroke='%23D8A69B'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+@keyframes villageLineFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@media (max-width: 600px) {
+  .home-page .hero::after {
+    right: 0;
+    width: 100%;
+    height: 48%;
+    opacity: 0.8;
+  }
+
+  .home-page .hero::before {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero::after {
+    animation: none;
+  }
+}
+
         @media (prefers-reduced-motion: reduce) {
           *,
           *::before,
@@ -1111,8 +1430,164 @@ export default function App() {
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
           }
+
+          .masthead *,
+          .nav-link,
+          .home-page *,
+          .home-page *::before,
+          .home-page *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
         }
-      `}</style>
+          
+/* ===== SUBTLE HERO ENTRANCE ===== */
+.home-page .hero-content {
+  animation: heroContentEnter 0.9s ease-out both;
+}
+
+@keyframes heroContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Village illustration stays fixed */
+.home-page .hero::after {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* ===== SMOOTH CARD HOVER ===== */
+.home-page .service-card,
+.home-page .member-card,
+.home-page .scheme-card,
+.home-page .development-card,
+.home-page .notice-card {
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.home-page .service-card:hover,
+.home-page .member-card:hover,
+.home-page .scheme-card:hover,
+.home-page .development-card:hover,
+.home-page .notice-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(23, 59, 112, 0.10);
+}
+
+/* ===== BUTTON HOVER ===== */
+.btn {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(23, 59, 112, 0.12);
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero-content {
+    animation: none !important;
+  }
+
+  .home-page .service-card,
+  .home-page .member-card,
+  .home-page .scheme-card,
+  .home-page .development-card,
+  .home-page .notice-card,
+  .btn {
+    transition: none !important;
+  }
+}
+
+
+
+/* ===== GOVERNMENT SCHEMES SECTION BACKGROUND ===== */
+
+.home-page .schemes-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 5% 15%,
+      rgba(174, 218, 190, 0.30),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 95% 85%,
+      rgba(180, 215, 245, 0.32),
+      transparent 43%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fcf8 0%,
+      #f5f9fd 50%,
+      #fbfcf8 100%
+    );
+}
+
+/* Decorative circles in the background */
+.home-page .schemes-section::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: -120px;
+  right: -70px;
+  border: 1px solid rgba(83, 143, 113, 0.13);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 25px rgba(83, 143, 113, 0.035),
+    0 0 0 55px rgba(83, 143, 113, 0.025);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.home-page .schemes-section::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  bottom: -110px;
+  left: -65px;
+  border-radius: 50%;
+  background: rgba(177, 215, 191, 0.16);
+  filter: blur(3px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Keep scheme content above the decoration */
+.home-page .schemes-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .home-page .schemes-section::before,
+  .home-page .schemes-section::after {
+    animation: none !important;
+  }
+}
+
+      `}
+      </style>
 
       <WelcomeScreen
         t={t}

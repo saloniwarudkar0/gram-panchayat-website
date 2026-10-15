@@ -1,8 +1,14 @@
-
 import { Link } from "react-router-dom";
 
 const serviceIcons = ["📄", "💧", "💡", "📝"];
 const developmentIcons = ["🛣️", "💧", "🌿", "🏫"];
+
+const sampleMemberPhotos = [
+  // Temporary sample portraits only — replace with actual Panchayat member photos later.
+  "https://www.pmindia.gov.in/wp-content/uploads/2025/12/02.jpg",
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Shri_Amit_Shah.jpg",
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Shri_Devendra_Gangadharrao_Fadnavis.jpg",
+];
 
 export default function Home({ t }) {
   return (
@@ -48,11 +54,11 @@ export default function Home({ t }) {
           height: 410px;
           right: 4%;
           top: 10%;
-          border: 2px solid rgba(7, 132, 81, .2);
+          border: 2px solid rgba(7,132,81,.2);
           border-radius: 50%;
           box-shadow:
-            0 0 0 30px rgba(36, 99, 235, .055),
-            0 0 0 70px rgba(240, 120, 36, .055);
+            0 0 0 30px rgba(36,99,235,.055),
+            0 0 0 70px rgba(240,120,36,.055);
           animation: hvOrbit 25s linear infinite;
         }
 
@@ -94,7 +100,7 @@ export default function Home({ t }) {
           border: 1px solid rgba(7,132,81,.2);
           border-radius: 40px;
           background: white;
-          box-shadow: 0 7px 22px rgba(15, 91, 56, .09);
+          box-shadow: 0 7px 22px rgba(15,91,56,.09);
         }
 
         .home-page .eyebrow::before {
@@ -197,6 +203,50 @@ export default function Home({ t }) {
           line-height: 1.85;
         }
 
+        /* SHARED CARD ANIMATION */
+
+        .home-page .service-card,
+        .home-page .scheme-card,
+        .home-page .notice-board,
+        .home-page .development-card {
+          position: relative;
+          isolation: isolate;
+          background-clip: padding-box;
+          transition:
+            transform .35s cubic-bezier(.2,.8,.2,1),
+            box-shadow .35s ease,
+            border-color .35s ease;
+        }
+
+        .home-page .service-card::after,
+        .home-page .scheme-card::after,
+        .home-page .notice-board::after,
+        .home-page .development-card::after {
+          content: "";
+          position: absolute;
+          z-index: 2;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          opacity: 0;
+          background: linear-gradient(
+            115deg,
+            transparent 20%,
+            rgba(255,255,255,.42) 48%,
+            transparent 72%
+          );
+          transform: translateX(-120%);
+          transition: transform .7s ease, opacity .25s ease;
+        }
+
+        .home-page .service-card:hover::after,
+        .home-page .scheme-card:hover::after,
+        .home-page .notice-board:hover::after,
+        .home-page .development-card:hover::after {
+          opacity: 1;
+          transform: translateX(120%);
+        }
+
         /* SERVICE CARDS */
 
         .home-page .services-grid {
@@ -208,8 +258,6 @@ export default function Home({ t }) {
         .home-page .service-card {
           --hv-accent: #2463eb;
           --hv-card-bg: #e7efff;
-          position: relative;
-          isolation: isolate;
           min-width: 0;
           padding: 29px 23px;
           overflow: hidden;
@@ -219,9 +267,6 @@ export default function Home({ t }) {
           box-shadow: 0 7px 0 color-mix(in srgb, var(--hv-accent) 22%, transparent);
           animation: hvEntrance .65s both;
           animation-delay: calc(var(--hv-index, 0) * 130ms);
-          transition:
-            transform .3s ease,
-            box-shadow .3s ease;
         }
 
         .home-page .service-card:nth-child(1) {
@@ -262,19 +307,11 @@ export default function Home({ t }) {
           transition: transform .4s ease;
         }
 
-        .home-page .service-card::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 6px;
-          background: var(--hv-accent);
-        }
-
         .home-page .service-card:hover {
-          transform: translateY(-10px) rotate(-1deg);
-          box-shadow: 0 16px 0 color-mix(in srgb, var(--hv-accent) 23%, transparent);
+          transform: translateY(-9px);
+          box-shadow:
+            0 16px 28px color-mix(in srgb, var(--hv-accent) 15%, transparent),
+            0 7px 0 color-mix(in srgb, var(--hv-accent) 23%, transparent);
         }
 
         .home-page .service-card:hover::before {
@@ -293,11 +330,12 @@ export default function Home({ t }) {
           color: white;
           font-size: 29px;
           box-shadow: 0 7px 15px color-mix(in srgb, var(--hv-accent) 30%, transparent);
-          transition: transform .35s ease;
+          transition: transform .35s ease, border-radius .35s ease;
         }
 
         .home-page .service-card:hover .service-icon {
-          transform: rotate(-12deg) scale(1.12);
+          transform: translateY(-3px) rotate(-8deg) scale(1.08);
+          border-radius: 22px;
         }
 
         .home-page .service-card h3 {
@@ -337,6 +375,12 @@ export default function Home({ t }) {
             radial-gradient(circle at 90% 80%, #39b982 0 15%, transparent 15.5%),
             linear-gradient(145deg, #16895a, #07553a 65%, #103a2b);
           box-shadow: 0 15px 0 #d7e8d9;
+          transition: box-shadow .4s ease, border-color .4s ease;
+        }
+
+        .home-page .about-visual:hover {
+          border-color: #ffb84f;
+          box-shadow: 0 18px 35px rgba(7,132,81,.18);
         }
 
         .home-page .about-visual::before,
@@ -378,6 +422,12 @@ export default function Home({ t }) {
           font-size: 56px;
           box-shadow: 0 9px 0 rgba(0,0,0,.12);
           animation: hvFloat 4s ease-in-out infinite;
+          transition: border-radius .35s ease, box-shadow .35s ease;
+        }
+
+        .home-page .about-visual:hover .about-visual-icon {
+          border-radius: 38px;
+          box-shadow: 0 12px 30px rgba(0,0,0,.2);
         }
 
         .home-page .about-visual-content h3 {
@@ -398,8 +448,8 @@ export default function Home({ t }) {
           padding: 0;
           list-style: none;
         }
-
-        .home-page .about-points li {
+          
+                .home-page .about-points li {
           display: flex;
           align-items: flex-start;
           gap: 12px;
@@ -417,9 +467,14 @@ export default function Home({ t }) {
           background: #078451;
           color: white;
           font-weight: 900;
+          transition: transform .25s ease;
         }
 
-        /* MEMBERS */
+        .home-page .about-points li:hover .check-icon {
+          transform: rotate(-8deg) scale(1.12);
+        }
+
+        /* MEMBERS: ANIMATED BORDER */
 
         .home-page .members-grid {
           display: grid;
@@ -428,49 +483,111 @@ export default function Home({ t }) {
         }
 
         .home-page .member-card {
+          position: relative;
+          isolation: isolate;
+          min-width: 0;
+          padding: 3px;
           overflow: hidden;
-          border: 2px solid #e7e9e2;
-          border-radius: 18px;
-          background: white;
+          border: 0;
+          border-radius: 20px;
+          background: #e7e9e2;
           box-shadow: 0 7px 0 #dfe8df;
-          transition: transform .3s ease, box-shadow .3s ease;
+          transition:
+            transform .4s cubic-bezier(.2,.8,.2,1),
+            box-shadow .4s ease;
+        }
+
+        .home-page .member-card::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          inset: -100%;
+          background: conic-gradient(
+            from 0deg,
+            #2463eb,
+            #43c8a0,
+            #ffbd60,
+            #f07824,
+            #8054dc,
+            #2463eb
+          );
+          animation: hvMemberBorder 5s linear infinite;
+          opacity: .8;
+          transition: opacity .35s ease;
+        }
+
+        .home-page .member-card::after {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,.8);
         }
 
         .home-page .member-card:hover {
-          transform: translateY(-9px);
-          box-shadow: 0 15px 0 #dfe8df;
+          transform: translateY(-10px);
+          box-shadow:
+            0 20px 35px rgba(36,99,235,.12),
+            0 7px 0 #dfe8df;
         }
+
+        .home-page .member-card:hover::before {
+          opacity: 1;
+          animation-duration: 2s;
+        }
+
+        .home-page .member-card > .member-photo,
+        .home-page .member-card > .member-info {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* MEMBER PHOTOS */
 
         .home-page .member-photo {
           position: relative;
-          min-height: 175px;
+          height: 250px;
           overflow: hidden;
+          border-radius: 16px 16px 0 0;
+          background: #e8f2eb;
         }
 
-        .home-page .member-photo-blank {
-          background:
-            radial-gradient(circle at 50% 39%, white 0 30px, transparent 31px),
-            radial-gradient(ellipse at 50% 110%, white 0 65px, transparent 66px),
-            linear-gradient(135deg, #4285f4, #b8dcff);
+        .home-page .member-photo img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 30%;
+          transition: transform .5s ease;
         }
 
-        .home-page .member-card:nth-child(2) .member-photo-blank {
-          background:
-            radial-gradient(circle at 50% 39%, white 0 30px, transparent 31px),
-            radial-gradient(ellipse at 50% 110%, white 0 65px, transparent 66px),
-            linear-gradient(135deg, #f07824, #ffcf84);
+        .home-page .member-card:hover .member-photo img {
+          transform: scale(1.06);
         }
 
-        .home-page .member-card:nth-child(3) .member-photo-blank {
-          background:
-            radial-gradient(circle at 50% 39%, white 0 30px, transparent 31px),
-            radial-gradient(ellipse at 50% 110%, white 0 65px, transparent 66px),
-            linear-gradient(135deg, #8054dc, #d6c5ff);
+        .home-page .photo-sample-badge {
+          position: absolute;
+          right: 12px;
+          bottom: 12px;
+          padding: 7px 10px;
+          border: 1px solid rgba(255,255,255,.75);
+          border-radius: 20px;
+          background: rgba(255,255,255,.94);
+          color: #183b2b;
+          font-size: 11px;
+          font-weight: 800;
+          box-shadow: 0 3px 12px rgba(0,0,0,.12);
         }
 
         .home-page .member-info {
+          min-height: 170px;
           padding: 23px;
           border-top: 5px solid #2463eb;
+          border-radius: 0 0 16px 16px;
+          background: white;
+          transition: background .35s ease;
         }
 
         .home-page .member-card:nth-child(2) .member-info {
@@ -495,6 +612,11 @@ export default function Home({ t }) {
           margin: 0 0 8px;
           color: #203c2c;
           font-size: 20px;
+          transition: color .25s ease;
+        }
+
+        .home-page .member-card:hover .member-info h3 {
+          color: #2463eb;
         }
 
         .home-page .member-info p {
@@ -512,9 +634,105 @@ export default function Home({ t }) {
           color: #8b5118;
           font-size: 11px;
           font-weight: 800;
+          transition: transform .25s ease;
         }
 
-        /* SCHEMES */
+        .home-page .member-card:hover .sample-label {
+          transform: translateY(-2px);
+        }
+
+        @keyframes hvMemberBorder {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        /* GOVERNMENT SCHEMES SECTION — BOLD TRICOLOUR */
+
+        .home-page .schemes-section {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          padding: 90px 0 !important;
+          background:
+            linear-gradient(
+              165deg,
+              #fff8ed 0%,
+              #ffffff 42%,
+              #effaf1 72%,
+              #d8f0df 100%
+            ) !important;
+        }
+
+        .home-page .schemes-section::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: -120px;
+          right: -80px;
+          width: 430px;
+          height: 430px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(255,153,51,.42) 0%,
+            rgba(255,153,51,.16) 38%,
+            transparent 72%
+          );
+          animation: hvSchemeGlow 7s ease-in-out infinite alternate;
+          pointer-events: none;
+        }
+
+        .home-page .schemes-section::after {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          left: -140px;
+          bottom: -180px;
+          width: 460px;
+          height: 460px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(7,132,81,.28) 0%,
+            rgba(7,132,81,.10) 45%,
+            transparent 72%
+          );
+          animation: hvSchemeGlow 9s ease-in-out infinite alternate-reverse;
+          pointer-events: none;
+        }
+
+        .home-page .schemes-section .section-heading,
+        .home-page .schemes-section .schemes-grid,
+        .home-page .schemes-section > div:last-child {
+          position: relative;
+          z-index: 1;
+        }
+
+        .home-page .schemes-section .section-heading::after {
+          content: "";
+          display: block;
+          width: 115px;
+          height: 5px;
+          margin: 22px auto 0;
+          border-radius: 10px;
+          background: linear-gradient(
+            90deg,
+            #ef8733 0%,
+            #ef8733 33.33%,
+            #ffffff 33.33%,
+            #ffffff 66.66%,
+            #078451 66.66%,
+            #078451 100%
+          );
+          box-shadow: 0 2px 8px rgba(24,61,42,.12);
+        }
+
+        @keyframes hvSchemeGlow {
+          0% { transform: translate3d(0,0,0) scale(1); }
+          100% { transform: translate3d(-25px,22px,0) scale(1.12); }
+        }
+
+        /* SCHEME CARDS */
 
         .home-page .schemes-grid {
           display: grid;
@@ -526,23 +744,25 @@ export default function Home({ t }) {
           display: flex;
           align-items: flex-start;
           gap: 22px;
+          min-width: 0;
           padding: 28px;
-          border: 2px solid #f1d9b4;
+          border: 1px solid rgba(7,132,81,.20);
+          border-top: 4px solid #078451;
           border-radius: 18px;
-          background: #fff3df;
-          box-shadow: 0 7px 0 #f1dfc7;
-          transition: transform .3s ease, box-shadow .3s ease;
+          background: rgba(255,255,255,.94);
+          box-shadow: 0 12px 30px rgba(24,61,42,.10);
+          backdrop-filter: blur(10px);
         }
 
         .home-page .scheme-card:nth-child(2) {
-          border-color: #b9d8ff;
-          background: #eaf3ff;
-          box-shadow: 0 7px 0 #d5e5fc;
+          border-color: rgba(240,120,36,.24);
+          border-top-color: #f07824;
+          background: rgba(255,255,255,.95);
         }
 
         .home-page .scheme-card:hover {
-          transform: translateY(-7px);
-          box-shadow: 0 14px 0 #e7dfd0;
+          transform: translateY(-8px);
+          box-shadow: 0 20px 38px rgba(24,61,42,.16);
         }
 
         .home-page .scheme-icon {
@@ -551,19 +771,22 @@ export default function Home({ t }) {
           flex-shrink: 0;
           width: 65px;
           height: 65px;
-          border-radius: 17px;
-          background: #f07824;
+          border-radius: 18px;
+          background: linear-gradient(135deg,#f07824,#e85d04);
           color: white;
           font-size: 29px;
-          transition: transform .3s ease;
+          box-shadow: 0 7px 16px rgba(240,120,36,.24);
+          transition: transform .3s ease, border-radius .3s ease;
         }
 
         .home-page .scheme-card:nth-child(2) .scheme-icon {
-          background: #2463eb;
+          background: linear-gradient(135deg,#3b82f6,#1d4ed8);
+          box-shadow: 0 7px 16px rgba(36,99,235,.24);
         }
 
         .home-page .scheme-card:hover .scheme-icon {
-          transform: rotate(9deg) scale(1.1);
+          transform: rotate(8deg) scale(1.08);
+          border-radius: 22px;
         }
 
         .home-page .scheme-card h3 {
@@ -588,14 +811,12 @@ export default function Home({ t }) {
         }
 
         .home-page .notice-board {
-          position: relative;
           overflow: hidden;
           padding: 29px;
           border: 2px solid #f4d18e;
           border-radius: 18px;
           background: #fff4d8;
           box-shadow: 0 7px 0 #f0dfbc;
-          transition: transform .3s ease;
         }
 
         .home-page .notice-board:nth-child(2) {
@@ -605,7 +826,8 @@ export default function Home({ t }) {
         }
 
         .home-page .notice-board:hover {
-          transform: translateY(-7px) rotate(-.4deg);
+          transform: translateY(-7px);
+          box-shadow: 0 15px 28px rgba(50,75,90,.1);
         }
 
         .home-page .notice-board-header {
@@ -625,10 +847,15 @@ export default function Home({ t }) {
           background: #f07824;
           color: white;
           font-size: 26px;
+          transition: transform .3s ease;
         }
 
         .home-page .notice-board:nth-child(2) .notice-board-icon {
           background: #2463eb;
+        }
+
+        .home-page .notice-board:hover .notice-board-icon {
+          transform: rotate(-7deg) scale(1.08);
         }
 
         .home-page .notice-board h3 {
@@ -666,12 +893,12 @@ export default function Home({ t }) {
         .home-page .section-green {
           background:
             radial-gradient(circle at 100% 0%, rgba(255,193,89,.22), transparent 30%),
-            linear-gradient(135deg, #103f2b, #08784d);
+            linear-gradient(135deg,#103f2b,#08784d);
         }
 
         .home-page .section-green .section-heading h2 {
           color: white;
-        }
+                  }
 
         .home-page .section-green .section-heading p {
           color: #e2f6e8;
@@ -689,33 +916,24 @@ export default function Home({ t }) {
 
         .home-page .development-card {
           padding: 25px 22px;
+          overflow: hidden;
           border: 1px solid rgba(255,255,255,.35);
           border-radius: 17px;
           background: rgba(255,255,255,.1);
-          transition: transform .3s ease, background .3s ease;
           animation: hvEntrance .6s both;
-          animation-delay: calc(var(--hv-index, 0) * 100ms);
+          animation-delay: calc(var(--hv-index,0) * 100ms);
         }
 
-        .home-page .development-card:nth-child(1) {
-          --hv-index: 0;
-        }
-
-        .home-page .development-card:nth-child(2) {
-          --hv-index: 1;
-        }
-
-        .home-page .development-card:nth-child(3) {
-          --hv-index: 2;
-        }
-
-        .home-page .development-card:nth-child(4) {
-          --hv-index: 3;
-        }
+        .home-page .development-card:nth-child(1) { --hv-index: 0; }
+        .home-page .development-card:nth-child(2) { --hv-index: 1; }
+        .home-page .development-card:nth-child(3) { --hv-index: 2; }
+        .home-page .development-card:nth-child(4) { --hv-index: 3; }
 
         .home-page .development-card:hover {
           transform: translateY(-8px);
+          border-color: rgba(255,208,120,.8);
           background: rgba(255,255,255,.19);
+          box-shadow: 0 15px 28px rgba(0,0,0,.12);
         }
 
         .home-page .development-icon {
@@ -727,7 +945,7 @@ export default function Home({ t }) {
           border-radius: 15px;
           background: #f07824;
           font-size: 26px;
-          transition: transform .3s ease;
+          transition: transform .3s ease, border-radius .3s ease;
         }
 
         .home-page .development-card:nth-child(2) .development-icon {
@@ -745,6 +963,7 @@ export default function Home({ t }) {
 
         .home-page .development-card:hover .development-icon {
           transform: rotate(-10deg) scale(1.1);
+          border-radius: 21px;
         }
 
         .home-page .development-card h3 {
@@ -786,39 +1005,23 @@ export default function Home({ t }) {
         }
 
         @keyframes hvFloat {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-13px);
-          }
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-13px); }
         }
 
         @keyframes hvOrbit {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         @keyframes hvSpin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         @keyframes hvPulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.3);
-          }
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.3); }
         }
 
         /* RESPONSIVE */
@@ -852,7 +1055,7 @@ export default function Home({ t }) {
           }
 
           .home-page .hero h2 {
-            font-size: clamp(36px, 9vw, 49px);
+            font-size: clamp(36px,9vw,49px);
             letter-spacing: -1px;
           }
 
@@ -885,8 +1088,23 @@ export default function Home({ t }) {
             padding: 26px 22px;
           }
 
+          .home-page .member-photo {
+            height: 280px;
+          }
+
           .home-page .scheme-card {
+            gap: 16px;
             padding: 22px;
+          }
+
+          .home-page .scheme-icon {
+            width: 54px;
+            height: 54px;
+            font-size: 24px;
+          }
+
+          .home-page .schemes-section {
+            padding: 58px 0 !important;
           }
         }
 
@@ -901,6 +1119,7 @@ export default function Home({ t }) {
         }
       `}</style>
 
+      {/* HERO */}
       <section className="hero" id="home">
         <div className="hero-content">
           <span className="eyebrow">{t.heroTag}</span>
@@ -915,6 +1134,7 @@ export default function Home({ t }) {
         </div>
       </section>
 
+      {/* SERVICES */}
       <section className="section section-cream">
         <div className="section-heading">
           <span className="section-label">{t.topText}</span>
@@ -935,6 +1155,7 @@ export default function Home({ t }) {
         </div>
       </section>
 
+      {/* ABOUT */}
       <section className="section">
         <div className="about-layout">
           <div className="about-visual">
@@ -967,6 +1188,7 @@ export default function Home({ t }) {
         </div>
       </section>
 
+      {/* MEMBERS */}
       <section className="section section-cream">
         <div className="section-heading">
           <span className="section-label">{t.topText}</span>
@@ -977,11 +1199,18 @@ export default function Home({ t }) {
         <div className="members-grid">
           {t.members.slice(0, 3).map((member, index) => (
             <article className="member-card" key={`${member[0]}-${index}`}>
-              <div
-                className="member-photo member-photo-blank"
-                role="img"
-                aria-label={member[0]}
-              />
+              <div className="member-photo">
+                <img
+                  src={sampleMemberPhotos[index]}
+                  alt={`Sample portrait for ${member[1]}`}
+                  loading="lazy"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
+                />
+                <span className="photo-sample-badge">Sample Photo</span>
+              </div>
+
               <div className="member-info">
                 <span className="member-role">{member[0]}</span>
                 <h3>{member[1]}</h3>
@@ -999,7 +1228,8 @@ export default function Home({ t }) {
         </div>
       </section>
 
-      <section className="section">
+      {/* GOVERNMENT SCHEMES */}
+      <section className="section schemes-section">
         <div className="section-heading">
           <span className="section-label">{t.topText}</span>
           <h2>{t.schemesTitle}</h2>
@@ -1025,6 +1255,7 @@ export default function Home({ t }) {
         </div>
       </section>
 
+      {/* NOTICES */}
       <section className="section section-cream">
         <div className="section-heading">
           <span className="section-label">{t.topText}</span>
@@ -1065,6 +1296,7 @@ export default function Home({ t }) {
         </div>
       </section>
 
+      {/* DEVELOPMENT */}
       <section className="section section-green">
         <div className="section-heading">
           <span className="section-label">{t.topText}</span>
